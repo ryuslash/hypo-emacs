@@ -37,6 +37,14 @@
          (end (1- (search-forward "\n"))))
     (copy-region-as-kill start end)))
 
+(defun hypo--collect-and-kill (status)
+  "Collect the returned url and kill the current buffer.
+
+STATUS is ignored."
+  (ignore status)
+  (hypo--collect-url)
+  (kill-buffer))
+
 ;;;###autoload
 (defun hypo-region (start end filename)
   "Send the region START up to END to hypo as FILENAME."
@@ -50,7 +58,7 @@
   (let ((url-request-data (buffer-substring-no-properties start end))
         (url-request-method "PUT"))
     (url-retrieve (concat "https://ryuslash.org/hypo/" filename)
-                  (lambda (status) (hypo--collect-url) (kill-buffer)))))
+                  #'hypo--collect-and-kill)))
 
 ;;;###autoload
 (defun hypo-buffer (buffer filename)
