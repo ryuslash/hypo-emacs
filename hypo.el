@@ -26,6 +26,8 @@
 
 ;;; Code:
 
+(require 'url)
+
 (autoload 'beginning-of-sexp "thingatpt")
 (autoload 'end-of-sexp "thingatpt")
 
