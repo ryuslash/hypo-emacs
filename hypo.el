@@ -37,7 +37,7 @@
          (end (1- (search-forward "\n"))))
     (copy-region-as-kill start end)))
 
-;;;### autoload
+;;;###autoload
 (defun hypo-region (start end filename)
   "Send the region START up to END to hypo as FILENAME."
   (interactive
