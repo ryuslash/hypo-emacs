@@ -4,7 +4,7 @@
 
 ;; Author: Tom Willemse <tom@ryuslash.org>
 ;; Keywords: tools
-;; Version: 0.1.0
+;; Version: 0.1.0.3
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -30,6 +30,16 @@
 
 (autoload 'beginning-of-sexp "thingatpt")
 (autoload 'end-of-sexp "thingatpt")
+
+(defgroup hypo nil
+  "Customization options for `hypo'."
+  :group 'convenience)
+
+(defcustom hypo-instance-url "https://ryuslash.org/hypo"
+  "URL of the hypo instance to communicate with."
+  :group 'hypo
+  :risky t
+  :type 'string)
 
 (defvar hypo--last-post nil
   "The hash of the last snippet sent to hypo.
@@ -64,7 +74,7 @@ STATUS is ignored."
              (read-string "Filename: " (buffer-name))))))
   (let ((url-request-data (buffer-substring-no-properties start end))
         (url-request-method "PUT"))
-    (url-retrieve (concat "https://ryuslash.org/hypo/" filename)
+    (url-retrieve (format "%s/%s" hypo-instance-url filename)
                   #'hypo--collect-and-kill)))
 
 ;;;###autoload
@@ -108,7 +118,7 @@ STATUS is ignored."
   (interactive)
   (unless hypo--last-post (error "Nothing posted this session"))
   (let ((url-request-method "DELETE"))
-    (url-retrieve (concat "https://ryuslash.org/hypo/" hypo--last-post)
+    (url-retrieve (format "%s/%s" hypo-instance-url hypo--last-post)
                   #'ignore)
     (setq hypo--last-post nil)))
 
