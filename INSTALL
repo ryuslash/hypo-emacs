@@ -1,0 +1,12 @@
+# -*- mode: org; -*-
+To install hypo-emacs download a tar or zip archive, extract it, place
+it somewhere in your Emacs' =load-path=, or change =load-path= to include
+the extracted directory:
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'load-path "/path/to/hypo-emacs")
+#+END_SRC
+
+*or* download and extract and then use ~package.el~ to install ~hypo.el~:
+
+: M-x package-install-file RET /path/to/hypo-emacs/hypo.el RET

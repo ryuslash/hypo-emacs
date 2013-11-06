@@ -1,1 +1,3 @@
-Some functions to interact with [[http://projects.ryuslash.org/hypo/][hypo]].
+#+STARTUP: showall
+
+Some functions to interact with [[http://projects.ryuslash.org/hypo/][hypo]] from [[http://gnu.org/software/emacs][GNU Emacs]].
