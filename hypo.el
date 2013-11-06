@@ -52,7 +52,9 @@ sent to hypo.")
   (let* ((start (search-forward "\n\n"))
          (end (1- (search-forward "\n"))))
     (setq hypo--last-post (buffer-substring-no-properties (- end 7) end))
-    (copy-region-as-kill start end)))
+    (copy-region-as-kill start end)
+    (message "Copied %s to kill-ring"
+             (buffer-substring-no-properties start end))))
 
 (defun hypo--collect-and-kill (status)
   "Collect the returned url and kill the current buffer.
@@ -117,10 +119,11 @@ STATUS is ignored."
   "Delete the last thing sent to hypo."
   (interactive)
   (unless hypo--last-post (error "Nothing posted this session"))
-  (let ((url-request-method "DELETE"))
-    (url-retrieve (format "%s/%s" hypo-instance-url hypo--last-post)
-                  #'ignore)
-    (setq hypo--last-post nil)))
+  (let ((url-request-method "DELETE")
+        (url (format "%s/%s" hypo-instance-url hypo--last-post)))
+    (url-retrieve url #'ignore)
+    (setq hypo--last-post nil)
+    (message "Deleted %s" url)))
 
 (provide 'hypo)
 ;;; hypo.el ends here

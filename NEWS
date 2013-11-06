@@ -4,3 +4,4 @@
     current session.
   - Add customization group and allow specification of the URL where
     hypo runs.
+  - Print messages after successful operations.
