@@ -1,0 +1,5 @@
+# -*- mode: org; -*-
+* v0.2.0
+
+  - Add =hypo-delete-last=, which deletes the last posted item of the
+    current session.

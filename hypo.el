@@ -31,10 +31,17 @@
 (autoload 'beginning-of-sexp "thingatpt")
 (autoload 'end-of-sexp "thingatpt")
 
+(defvar hypo--last-post nil
+  "The hash of the last snippet sent to hypo.
+
+Will be used for certain commands that operate on the last thing
+sent to hypo.")
+
 (defun hypo--collect-url ()
   "Collect the returned url."
   (let* ((start (search-forward "\n\n"))
          (end (1- (search-forward "\n"))))
+    (setq hypo--last-post (buffer-substring-no-properties (- end 7) end))
     (copy-region-as-kill start end)))
 
 (defun hypo--collect-and-kill (status)
@@ -95,6 +102,15 @@ STATUS is ignored."
     (hypo-region (progn (beginning-of-sexp) (point))
                  (progn (end-of-sexp) (point))
                  filename)))
+
+(defun hypo-delete-last ()
+  "Delete the last thing sent to hypo."
+  (interactive)
+  (unless hypo--last-post (error "Nothing posted this session"))
+  (let ((url-request-method "DELETE"))
+    (url-retrieve (concat "https://ryuslash.org/hypo/" hypo--last-post)
+                  #'ignore)
+    (setq hypo--last-post nil)))
 
 (provide 'hypo)
 ;;; hypo.el ends here
