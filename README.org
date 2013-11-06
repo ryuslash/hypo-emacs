@@ -1,3 +1,10 @@
 #+STARTUP: showall
 
 Some functions to interact with [[http://projects.ryuslash.org/hypo/][hypo]] from [[http://gnu.org/software/emacs][GNU Emacs]].
+
+* Downloading
+
+  hypo emacs can be downloaded as follows:
+
+  - master :: [[http://code.ryuslash.org/hypo-emacs/snapshot/hypo-emacs-master.tar.gz][tar.gz]] [[http://code.ryuslash.org/hypo-emacs/snapshot/hypo-emacs-master.zip][zip]]
+  - v0.2.0 :: [[http://code.ryuslash.org/hypo-emacs/snapshot/hypo-emacs-0.2.0.tar.gz][tar.gz]] [[http://code.ryuslash.org/hypo-emacs/snapshot/hypo-emacs-0.2.0.zip][zip]]
