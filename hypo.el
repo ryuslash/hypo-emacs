@@ -121,7 +121,7 @@ STATUS is ignored."
   (unless hypo--last-post (error "Nothing posted this session"))
   (let ((url-request-method "DELETE")
         (url (format "%s/%s" hypo-instance-url hypo--last-post)))
-    (url-retrieve url #'ignore)
+    (url-retrieve url (lambda (status) (ignore status) (kill-buffer)))
     (setq hypo--last-post nil)
     (message "Deleted %s" url)))
 
