@@ -125,5 +125,27 @@ STATUS is ignored."
     (setq hypo--last-post nil)
     (message "Deleted %s" url)))
 
+(defun hypo--file-shower (filename)
+  "Make a function to show file as FILENAME."
+  (lambda (status)
+    (ignore status)
+    (let* ((start (1+ (marker-position url-http-end-of-headers)))
+           (end (point-max))
+           (contents (buffer-substring-no-properties start end))
+           (buffer (generate-new-buffer filename)))
+      (with-current-buffer buffer
+        (insert contents)
+        (write-file (concat "/tmp/" filename))
+        (goto-char (point-min)))
+      (kill-buffer)
+      (set-window-buffer nil buffer))))
+
+;;;###autoload
+(defun hypo-get-file (hash filename)
+  "Get the file HASH/FILENAME from your hypo instance."
+  (interactive "MHash: \nMFile: ")
+  (let ((url (format "%s/raw/%s/%s" hypo-instance-url hash filename)))
+    (url-retrieve url (hypo--file-shower filename))))
+
 (provide 'hypo)
 ;;; hypo.el ends here
